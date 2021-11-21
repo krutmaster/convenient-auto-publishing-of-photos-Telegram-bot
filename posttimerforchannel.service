@@ -1,0 +1,10 @@
+[Unit]
+Description=Telegram bot post timer to channel
+[Service]
+WorkingDirectory=/home/krutmaster/opentfd
+ExecStart=/usr/bin/python3 bot.py
+Restart=always
+RestartSec=10
+SyslogIdentifier=python-posttimerforchannel
+[Install]
+WantedBy=multi-user.target
