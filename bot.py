@@ -70,6 +70,6 @@ def handle_docs(message):
 
 
 if __name__ == '__main__':
-    #post_schedule = threading.Thread(target=post_timer)
-    #post_schedule.start()
+    post_schedule = threading.Thread(target=post_timer)
+    post_schedule.start()
     bot.polling(none_stop=True)
