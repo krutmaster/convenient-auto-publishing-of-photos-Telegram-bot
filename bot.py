@@ -53,13 +53,12 @@ def count(message):
 def post_timer():
     global status_send
     while True:
-        print('yes')
         if status_send:
             files = os.listdir('temp')
             if len(files) > 1:
                 result = send()
                 while not result:
-                    time.sleep(300)
+                    time.sleep(60)
                     result = send()
                 bot.send_message(boss, f'Фотка отправлена успешно, осталось {len(files) - 2} фоток', disable_notification=True)
                 time.sleep(7200)
@@ -67,7 +66,7 @@ def post_timer():
                 status_send = False
                 bot.send_message(boss, 'Фотки закончились')
         else:
-            time.sleep(5)
+            time.sleep(60)
 
 
 @bot.message_handler(content_types=['document'])
