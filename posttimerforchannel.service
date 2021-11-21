@@ -1,7 +1,7 @@
 [Unit]
 Description=Telegram bot post timer to channel
 [Service]
-WorkingDirectory=/home/krutmaster/posttimerforchannel
+WorkingDirectory=/home/posttimerforchannel
 ExecStart=/usr/bin/python3 bot.py
 Restart=always
 RestartSec=10
