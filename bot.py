@@ -46,8 +46,9 @@ def switch(message):
 @bot.message_handler(commands=['count'])
 def count(message):
     id = str(message.chat.id)
+    all_files = len(os.listdir('temp')) - 1
     if id == boss:
-        bot.send_message(id, count_got_files)
+        bot.send_message(id, f'Получено {count_got_files}, всего фоток {all_files}')
 
 
 def post_timer():
