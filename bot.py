@@ -7,6 +7,7 @@ import secret
 
 
 status_send = False
+count_got_files = 0
 bot = telebot.TeleBot(secret.token)
 bot.send_message(538231919, 'Бот перезапустился')
 
@@ -28,11 +29,19 @@ def send():
 
 @bot.message_handler(commands=['send'])
 def switch(message):
-    global status_send
+    global status_send, count_got_files
     id = str(message.chat.id)
     if id == '538231919':
         status_send = True
+        count_got_files = 0
         bot.send_message(id, 'Отправка включена')
+
+
+@bot.message_handler(commands=['count'])
+def switch(message):
+    id = str(message.chat.id)
+    if id == '538231919':
+        bot.send_message(id, count_got_files)
 
 
 def post_timer():
@@ -45,7 +54,7 @@ def post_timer():
                 while not result:
                     time.sleep(300)
                     result = send()
-                bot.send_message(538231919, 'Фотка отправлена успешно', disable_notification=True)
+                bot.send_message(538231919, f'Фотка отправлена успешно, осталось {len(files)} фоток', disable_notification=True)
                 time.sleep(7200)
             else:
                 status_send = False
@@ -56,6 +65,7 @@ def post_timer():
 
 @bot.message_handler(content_types=['document'])
 def handle_docs(message):
+    global count_got_files
     id = str(message.chat.id)
     if id == '538231919':
         try:
@@ -64,6 +74,7 @@ def handle_docs(message):
             file_name = f'temp/{message.document.file_name}'
             with open(file_name, 'wb') as new_file:
                 new_file.write(downloaded_file)
+            count_got_files += 1
             bot.send_message(id, 'save')
         except Exception as e:
             bot.send_message(id, f'error, try again\n\n{e}')
