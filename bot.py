@@ -23,9 +23,9 @@ def send():
             i = 0
         file_name = f'temp/{os.listdir("temp")[i]}'
         with open(file_name, 'rb') as photo:
-            bot.send_photo(boss, photo)
+            bot.send_photo(secret.channel, photo)
         with open(file_name, 'rb') as photo:
-            bot.send_document(boss, photo)
+            bot.send_document(secret.channel, photo)
         os.remove(file_name)
         return True
     except Exception as e:
